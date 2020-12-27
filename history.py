@@ -1,9 +1,9 @@
 
 class Personagem():
-    def __init__(self, nome, tipo, skils):
+    def __init__(self, nome, tipo):
         self._nome= nome
         self._tipo= tipo
-        self._skils= skils
+        
 
     def nome_personagem(self):
         return f'{self._nome}'
@@ -11,14 +11,98 @@ class Personagem():
     def tipo_personagem(self):
         return f'{self._tipo}'
     
-    def skils_personagem(self):
-        return f'{self._skils}'
 
     def __str__(self):
-        return f' Nome: {self._nome}\n Tipo: {self._tipo} Skils: {self._skils}'    
+        return f' Nome: {self._nome}\n {self._tipo}'    
 
 
-pers = Personagem('zé', 'malandro', 'quebra tranca')
-print(pers)
+
+class Tipo_personagem():
+    def __init__(self):
+        pass
+        # self._tipo = tipo
+     
+    def add_arma(self):
+        raise Exception()
+    
+    def add_defesa(self):
+        raise Exception()
+    
+    def add_tipo(self):
+        raise Exception()
+
+    def descricao(self):
+        raise Exception()
 
 
+    def __str__(self):
+        return f'Tipo: {self.add_tipo()} \n Arma: {self.add_arma()} Defesa: {self.add_defesa()} \n Descrição: {self.descricao()}'
+    
+class Guerreiro(Tipo_personagem):
+    
+    def __init__(self):
+        Tipo_personagem.__init__(self)
+        self._arma = 'Espada'
+        self._defesa = 'Escudo'
+        
+    def add_arma(self):
+        return f'{self._arma}' 
+
+    def add_defesa(self):
+        return f'{self._defesa}'
+
+    def add_tipo(self):
+        return 'Guerreiiro'        
+
+    def descricao(self):
+        return f'Guerreiiro de fé, Nunca Géla!!\n Coragem, força e sangue nos zóio!!'
+
+class Mago(Tipo_personagem):
+    
+    def __init__(self):
+        Tipo_personagem.__init__(self)
+        self._arma = 'Poção que deixa Doidão'
+        self._defesa = 'Capa Bate-Volta'
+        
+    def add_arma(self):
+        return f'{self._arma}' 
+
+    def add_defesa(self):
+        return f'{self._defesa}'
+
+    def add_tipo(self):
+        return 'Mago'        
+
+    def descricao(self):
+        return f'Mostra a cara Mr. M!!\n Vem na magia do Pai!!'
+
+class Besta(Tipo_personagem):
+   
+    def __init__(self):
+        Tipo_personagem.__init__(self)
+        self._arma = 'Garras Avassaladoras'
+        self._defesa = 'Pele Blindada'
+        
+    def add_arma(self):
+        return f'{self._arma}' 
+
+    def add_defesa(self):
+        return f'{self._defesa}'
+
+    def add_tipo(self):
+        return 'Besta'        
+
+    def descricao(self):
+        return f'Se correr o bicho pega, Se ficar o bicho come'        
+
+guerreiro = Guerreiro()
+pers1 = Personagem('zé', guerreiro)
+print(pers1)
+
+mago = Mago()
+pers2 = Personagem('jow', mago)
+print(pers2)
+
+besta = Besta()
+pers3 = Personagem('billy', besta)
+print(pers3)
