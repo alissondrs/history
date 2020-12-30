@@ -130,3 +130,5 @@ print(pers2)
 besta = Besta()
 pers3 = Personagem('billy', besta)
 print(pers3)
+
+class 
