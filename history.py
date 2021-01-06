@@ -1,8 +1,12 @@
 from enum import Enum
 class Textos(Enum):
-    intro_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro/intro_guerreiro.txt'
-    intro_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro/intro_mago.txt'
-    intro_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro/intro_besta.txt'
+    
+    intro_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_guerreiro.txt'
+    intro_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_mago.txt'
+    intro_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_besta.txt'
+    inicio_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/inicio_guerreiro.txt'
+    inicio_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/inicio_mago.txt'
+    inicio_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/inicio_besta.txt'
     
 class Personagem():
     def __init__(self, nome, tipo):
@@ -133,24 +137,26 @@ class Besta(Tipo_personagem):
 
 
 class Start():
-    pers1 = Guerreiro()
-    pers2 = Mago()
-    pers3 = Besta()
+    guerriro = Guerreiro()
+    mago = Mago()
+    besta = Besta()
 
-    nome_guerreiro = (input("Nome Guerreiro: "))
-    guerreiro = Personagem(nome_guerreiro, pers1)
-    print(guerreiro)
-        
-    nome_mago = (input("Nome Mago: "))
-    mago = Personagem(nome_mago, pers2)
-    print(mago)
-       
-    nome_besta = (input("Nome Besta: "))
-    besta = Personagem(nome_besta, pers3)
-    print(besta)
-    
-    
-    def escolha(self):
+    escolha=(input('Escolha um Personagem:\n 1 - Guerreiro \n 2 - Mago \n 3 - besta \n'))
+
+    if escolha == '1':
+        nome = (input("Nome Guerreiro: "))
+        personagem = Personagem(nome, guerriro)
+        print(personagem)
+    elif escolha == '2':    
+        nome = (input("Nome Mago: "))
+        personagem = Personagem(nome, mago)
+        print(mago)
+    elif escolha == '3':        
+        nome = (input("Nome Besta: "))
+        personagem = Personagem(nome, besta)
+        print(besta)
+
+    def inicio(self, personagem):
         pass
         
 start = Start()
