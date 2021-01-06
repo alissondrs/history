@@ -41,7 +41,7 @@ class Tipo_personagem():
         raise Exception()    
 
     def __str__(self):
-        return f'Tipo: {self.add_tipo()} \n Arma: {self.add_arma()} Defesa: {self.add_defesa()} \n Descrição: {self.descricao()} \n Intro: {self.add_intro()}'
+        return f'Tipo: {self.add_tipo()} \n Arma: {self.add_arma()} Defesa: {self.add_defesa()} \n Descrição: {self.descricao()} '
     
 class Guerreiro(Tipo_personagem):
     
@@ -67,7 +67,11 @@ class Guerreiro(Tipo_personagem):
         return f'{self._intro}'            
 
     def descricao(self):
-        return f'Guerreiiro de fé, Nunca Géla!!\n Coragem, força e sangue nos zóio!!'
+        file = Textos.intro_guerra.value
+        f = open(file, 'r')
+        self._intro = (f.read())
+        return f'{self._intro}'
+        # return f'Guerreiiro de fé, Nunca Géla!!\n Coragem, força e sangue nos zóio!!'
 
 class Mago(Tipo_personagem):
     
@@ -86,7 +90,10 @@ class Mago(Tipo_personagem):
         return 'Mago'        
 
     def descricao(self):
-        return f'Mostra a cara Mr. M!!\n Vem na magia do Pai!!'
+        file = Textos.intro_mago.value
+        f = open(file, 'r')
+        self._intro = (f.read())
+        return f'{self._intro}'
 
     def add_intro(self):
         file = Textos.intro_mago.value
@@ -111,7 +118,11 @@ class Besta(Tipo_personagem):
         return 'Besta'        
 
     def descricao(self):
-        return f'Se correr o bicho pega, Se ficar o bicho come'
+        file = Textos.intro_besta.value
+        f = open(file, 'r')
+        self._intro = (f.read())
+        return f'{self._intro}'
+        #return f'Se correr o bicho pega, Se ficar o bicho come'
 
     def add_intro(self):
         file = Textos.intro_besta.value
@@ -119,16 +130,40 @@ class Besta(Tipo_personagem):
         self._intro = (f.read())
         return f'{self._intro}'                
 
-guerreiro = Guerreiro()
-pers1 = Personagem('zé', guerreiro)
-print(pers1)
 
-mago = Mago()
-pers2 = Personagem('jow', mago)
-print(pers2)
 
-besta = Besta()
-pers3 = Personagem('billy', besta)
-print(pers3)
+class Start():
+    pers1 = Guerreiro()
+    pers2 = Mago()
+    pers3 = Besta()
 
-class 
+    nome_guerreiro = (input("Nome Guerreiro: "))
+    guerreiro = Personagem(nome_guerreiro, pers1)
+    print(guerreiro)
+        
+    nome_mago = (input("Nome Mago: "))
+    mago = Personagem(nome_mago, pers2)
+    print(mago)
+       
+    nome_besta = (input("Nome Besta: "))
+    besta = Personagem(nome_besta, pers3)
+    print(besta)
+    
+    
+    def escolha(self):
+        pass
+        
+start = Start()
+
+
+# guerreiro = Guerreiro()
+# pers1 = Personagem('zé', guerreiro)
+# print(pers1)
+
+# mago = Mago()
+# pers2 = Personagem('jow', mago)
+# print(pers2)
+
+# besta = Besta()
+# pers3 = Personagem('billy', besta)
+# print(pers3)
