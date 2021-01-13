@@ -11,12 +11,12 @@ class Textos(Enum):
     meio_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/meio_guerreiro.txt'
     meio_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/meio_besta.txt'
     meio_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/meio_mago.txt'
-    fim1_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim1_guerreiro.txt'
-    fim1_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim1_besta.txt'
-    fim1_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim1_mago.txt'
-    fim2_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim2_guerreiro.txt'
-    fim2_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim2_besta.txt'
-    fim2_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim2_mago.txt'
+    fim_feliz_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_feliz_guerreiro.txt'
+    fim_feliz_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_feliz_besta.txt'
+    fim_feliz_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_feliz_mago.txt'
+    fim_triste_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_guerreiro.txt'
+    fim_triste_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_besta.txt'
+    fim_triste_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_mago.txt'
 
 class Personagem():
     def __init__(self, nome, tipo):
@@ -58,7 +58,7 @@ class Ler(Ler_texto):
 class Tipo_personagem():
     def __init__(self):
         pass
-        # self._tipo = tipo
+      
      
     def add_arma(self):
         raise Exception()
@@ -101,14 +101,14 @@ class Mago(Tipo_personagem):
     
     def __init__(self):
         Tipo_personagem.__init__(self)
-        self._arma = 'Poção que deixa Doidão'
-        self._defesa = 'Capa Bate-Volta'
+        self._arma = 'Poção verde sintilante que deixa Doidão'
+        self._defesa = 'Capa hiponotizante'
         
     def add_arma(self):
-        return f'{self._arma}' 
+        return self._arma 
 
     def add_defesa(self):
-        return f'{self._defesa}'
+        return self._defesa
 
     def add_tipo(self):
         return 'Mago'        
@@ -126,10 +126,10 @@ class Besta(Tipo_personagem):
         self._defesa = 'Pele Blindada'
         
     def add_arma(self):
-        return f'{self._arma}' 
+        return self._arma 
 
     def add_defesa(self):
-        return f'{self._defesa}'
+        return self._defesa
 
     def add_tipo(self):
         return 'Besta'        
@@ -138,34 +138,22 @@ class Besta(Tipo_personagem):
        return f'Se correr o bicho pega, Se ficar o bicho come'
 
 class Meio():
-    def __init__(self, texto):
-        self._texto = texto
-        # self._final_feliz = bool
-             
-        print(self._texto)
+    def __init__(self, texto_meio, texto_fim_feliz, texto_fim_triste):
+        self._texto_meio = texto_meio
+        self._final_feliz = texto_fim_feliz
+        self._final_triste = texto_fim_triste
+
+        print(self._texto_meio)
         self._continua = (input("Qual a opção: "))
     def continua(self):    
         if self._continua == '1':
-            self._final_feliz = False
-        else:
-            self._final_feliz = True
-    def final(self):         
+            print(self._final_feliz)
+        elif self._continua == '2':
+            print(self._final_triste)
+    def __str__(self):         
         return self._final_feliz  
 
-class Final():
-    def __init__(self, final, finalfeliz, finaltriste):
-        self._final = final
-        self._finalfeliz = finalfeliz
-        self._finaltriste = finaltriste
-        
-    def final(self):
-        if self._final:
-            self._fim = Ler(self._finalfeliz)
-        else:
-            self._fim = Ler(self._finaltriste)
-
-    def fim(self):
-        return f'{{{self._fim}}}'                 
+         
 
 
 
@@ -182,18 +170,13 @@ class Start():
     meio_guerreiro = Ler(Textos.meio_guerra.value)
     meio_mago = Ler(Textos.meio_mago.value)
     meio_besta = Ler(Textos.meio_besta.value)
-    fim1_guerreiro = Ler(Textos.fim1_guerra.value)
-    fim2_guerreiro = Ler(Textos.fim2_guerra.value)
-    fim1_mago = Ler(Textos.fim1_mago.value)
-    fim2_mago = Ler(Textos.fim2_mago.value)
-    fim1_besta = Ler(Textos.fim1_besta.value)
-    fim2_besta = Ler(Textos.fim2_besta.value)
-    continua_guerreiro = True
-    continua_mago = True
-    continua_besta = True
-    final_feliz_guerreiro = True
-    final_feliz_mago = True
-    final_feliz_besta = True
+    fim_feliz_guerreiro = Ler(Textos.fim_feliz_guerra.value)
+    fim_triste_guerreiro = Ler(Textos.fim_triste_guerra.value)
+    fim_feliz_mago = Ler(Textos.fim_feliz_mago.value)
+    fim_triste_mago = Ler(Textos.fim_triste_mago.value)
+    fim_feliz_besta = Ler(Textos.fim_feliz_besta.value)
+    fim_triste_besta = Ler(Textos.fim_triste_besta.value)
+
 
 
     escolha=(input('Escolha um Personagem:\n 1 - Guerreiro \n 2 - Mago \n 3 - besta \n'))
@@ -202,87 +185,22 @@ class Start():
         nome = (input("Nome Guerreiro: "))
         personagem = Personagem(nome, guerriro)
         print(personagem)
-        # meio = Ler(Textos.meio_guerra.value)
         print(inicio_guerreiro)
-        meio = Meio(meio_guerreiro)
-        final = Final(meio.final,fim1_guerreiro, fim2_guerreiro)
-        fim = final.final
-        print(final.fim)
-        continua_guerreiro
-        continua_mago = False
-        continua_besta = False
+        meio = Meio(meio_guerreiro,fim_feliz_guerreiro, fim_triste_guerreiro)
+        meio.continua()
 
     elif escolha == '2':    
         nome = (input("Nome Mago: "))
         personagem = Personagem(nome, mago)
         print(personagem)
         print(inicio_mago)
-        continua_guerreiro = False
-        continua_mago
-        continua_besta = False
+        meio = Meio(meio_mago,fim_feliz_mago, fim_triste_mago)
+        meio.continua()
        
     elif escolha == '3':        
         nome = (input("Nome Besta: "))
         personagem = Personagem(nome, besta)
         print(personagem)
         print(inicio_besta)
-        continua_guerreiro = False
-        continua_mago = False
-        continua_besta
-
-    # if continua_guerreiro:
-    #     meio = Meio(meio_guerreiro)
-    #     if meio.final == True:
-    #         print('final feliz')
-    #     else:
-    #         print('final triste')     
-        
-        # continua
-        
-
-        # print(meio_guerreiro)
-        # continua = (input("Qual a opção: "))
-        # if continua == '1':
-        #     final_feliz_guerreiro = False
-        # else:
-        #     final_feliz_guerreiro = True    
-
-    # if final_feliz_guerreiro:
-    #     print(fim1_guerreiro)
-    
-    # if final_feliz_guerreiro == False:
-    #     print(fim2_guerreiro)    
-    # def meio(self, texto):
-    #     self._texto = texto
-    #     self._final_feliz = bool
-    #     print(self._texto)
-    #     self._continua = (input("Qual a opção: "))
-    #     if self.continua == '1':
-    #         self._final_feliz = False
-    #     else:
-    #         self._final_feliz = True 
-    #     return self._final_feliz     
-
-
-
-               
-
-    # def meio(self, personagem):
-    #     self.personagem = personagem
-    #     self._nome = personagem.nome_personagem()
-    #     print(self._nome)
-
-        
-
-    # def meio(self, personagem):
-    #     pass
-
-    # def fim(self, personagem):
-    #     pass    
-        
-# start = Start()
-
-# print(meio)
-
-# inicio_war = Textos.inicio_guerra.value
-# ler = Ler(inicio_war) 
+        meio = Meio(meio_besta,fim_feliz_besta, fim_triste_besta)
+        meio.continua()
