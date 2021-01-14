@@ -1,5 +1,5 @@
 from enum import Enum
-import abc
+
 class Textos(Enum):
     
     intro_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_guerreiro.txt'
@@ -17,6 +17,7 @@ class Textos(Enum):
     fim_triste_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_guerreiro.txt'
     fim_triste_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_besta.txt'
     fim_triste_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_mago.txt'
+    intro = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro.txt'
 
 class Personagem():
     def __init__(self, nome, tipo):
@@ -33,14 +34,8 @@ class Personagem():
     def __str__(self):
         return f' Nome: {self._nome}\n {self._tipo}'    
 
-class Ler_texto(metaclass=abc.ABCMeta):
-    @abc.abstractclassmethod
-    def leitor(self):
-        return
-    def __str__(self):
-        return 
 
-class Ler(Ler_texto):
+class Ler():
 
     def __init__(self, texto):
         self._texto = texto
@@ -50,7 +45,8 @@ class Ler(Ler_texto):
     def leitor(self):
         file = self._texto
         f = open(file, 'r')
-        print(f.read())
+        f.seek(0)
+        return f.read()
         
     def __str__(self):
         return f'{self.leitor()}'
@@ -69,13 +65,13 @@ class Tipo_personagem():
     def add_tipo(self):
         raise Exception()
 
-    def descricao(self):
+    def frase_efeito(self):
         raise Exception()
 
      
     
     def __str__(self):
-        return f'Tipo: {self.add_tipo()} \n Arma: {self.add_arma()} Defesa: {self.add_defesa()} \n Descrição: {self.descricao()}'
+        return f'Tipo: {self.add_tipo()} \n Arma: {self.add_arma()} Defesa: {self.add_defesa()} \n Frase de efeito: {self.frase_efeito()}'
     
 class Guerreiro(Tipo_personagem):
     
@@ -94,8 +90,8 @@ class Guerreiro(Tipo_personagem):
     def add_tipo(self):
         return 'Guerreiiro'
         
-    def descricao(self):
-        return f'Guerreiiro de fé, Nunca Géla!!\n Coragem, força e sangue nos zóio!!'
+    def frase_efeito(self):
+        return f'Espada na Caveira!!'
 
 class Mago(Tipo_personagem):
     
@@ -114,7 +110,7 @@ class Mago(Tipo_personagem):
         return 'Mago'        
            
 
-    def descricao(self):
+    def frase_efeito(self):
        return f'Mostra a cara Mr.M'
 
  
@@ -134,10 +130,24 @@ class Besta(Tipo_personagem):
     def add_tipo(self):
         return 'Besta'        
     
-    def descricao(self):
+    def frase_efeito(self):
        return f'Se correr o bicho pega, Se ficar o bicho come'
 
-class Meio():
+class Historia_completa():
+    # lista = []
+    def __init__(self, inicio, meio, lista):
+        self._inicio = inicio
+        self._meio = meio
+        self._lista = lista
+    def add_lista(self):
+        self._lista.append(self._inicio)
+        self._lista.append(self._meio)
+    def __str__(self):
+        return f'{self._lista}'         
+        
+
+
+class Historia():
     def __init__(self, texto_meio, texto_fim_feliz, texto_fim_triste):
         self._texto_meio = texto_meio
         self._final_feliz = texto_fim_feliz
@@ -148,22 +158,20 @@ class Meio():
     def continua(self):    
         if self._continua == '1':
             print(self._final_feliz)
+            return self._final_feliz
         elif self._continua == '2':
             print(self._final_triste)
+            return self._final_triste
     def __str__(self):         
         return self._final_feliz  
 
-         
 
-
-
-
-
+       
 class Start():
-
     guerriro = Guerreiro()
     mago = Mago()
     besta = Besta()
+    intro = Ler(Textos.intro.value) 
     inicio_guerreiro = Ler(Textos.inicio_guerra.value)
     inicio_mago = Ler(Textos.inicio_mago.value)
     inicio_besta = Ler(Textos.inicio_besta.value)
@@ -176,31 +184,42 @@ class Start():
     fim_triste_mago = Ler(Textos.fim_triste_mago.value)
     fim_feliz_besta = Ler(Textos.fim_feliz_besta.value)
     fim_triste_besta = Ler(Textos.fim_triste_besta.value)
+    lista = []
+    print(intro)
 
-
-
-    escolha=(input('Escolha um Personagem:\n 1 - Guerreiro \n 2 - Mago \n 3 - besta \n'))
+    escolha=(input('\nEscolha um Personagem:\n 1 - Guerreiro \n 2 - Mago \n 3 - besta \n'))
 
     if escolha == '1':
         nome = (input("Nome Guerreiro: "))
         personagem = Personagem(nome, guerriro)
         print(personagem)
         print(inicio_guerreiro)
-        meio = Meio(meio_guerreiro,fim_feliz_guerreiro, fim_triste_guerreiro)
-        meio.continua()
+        print('\nPois é nobre guerreiro '+personagem._nome+' sempre tem alguem pra tirar a sua paz\n')
+        historia = Historia(meio_guerreiro,fim_feliz_guerreiro, fim_triste_guerreiro)
+        # historia.continua()
+        final = historia.continua()
+        lista.append(inicio_guerreiro.__str__)
+        lista.append(final.__str__)
+        print(lista)
 
     elif escolha == '2':    
         nome = (input("Nome Mago: "))
         personagem = Personagem(nome, mago)
         print(personagem)
         print(inicio_mago)
-        meio = Meio(meio_mago,fim_feliz_mago, fim_triste_mago)
-        meio.continua()
+        print('\nVocê gosta de por fogo no parquinho né '+personagem._nome+' seu sem vergonha\n')
+        historia = Historia(meio_mago,fim_feliz_mago, fim_triste_mago)
+        historia.continua()
        
     elif escolha == '3':        
         nome = (input("Nome Besta: "))
         personagem = Personagem(nome, besta)
         print(personagem)
         print(inicio_besta)
-        meio = Meio(meio_besta,fim_feliz_besta, fim_triste_besta)
-        meio.continua()
+        print('\n Fala  ai '+personagem._nome+' Namastê ou VaiSefudê?  \n')
+        historia = Historia(meio_besta,fim_feliz_besta, fim_triste_besta)
+        historia.continua()
+    else:
+        pass
+
+start = Start()
