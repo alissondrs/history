@@ -2,25 +2,30 @@ from enum import Enum
 import os
 import time
 
+#Apontar o caminho onde o seu aplicativo vai estar salvo
+path = '/home/alissonsilva/scripts/python/objeto/tcc'
+
+#classe responsavel por instancias todos os txts usados.
 class Textos(Enum):
     
-    intro_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_guerreiro.txt'
-    intro_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_mago.txt'
-    intro_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro_besta.txt'
-    inicio_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/inicio_guerreiro.txt'
-    inicio_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/inicio_mago.txt'
-    inicio_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/inicio_besta.txt'
-    meio_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/meio_guerreiro.txt'
-    meio_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/meio_besta.txt'
-    meio_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/meio_mago.txt'
-    fim_feliz_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_feliz_guerreiro.txt'
-    fim_feliz_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_feliz_besta.txt'
-    fim_feliz_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_feliz_mago.txt'
-    fim_triste_guerra = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_guerreiro.txt'
-    fim_triste_besta = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_besta.txt'
-    fim_triste_mago = '/home/alissonsilva/scripts/python/objeto/tcc/textos/fim_triste_mago.txt'
-    intro = '/home/alissonsilva/scripts/python/objeto/tcc/textos/intro.txt'
+    intro_guerra = ''+path+'/textos/intro_guerreiro.txt'
+    intro_mago = ''+path+'/textos/intro_mago.txt'
+    intro_besta = ''+path+'/textos/intro_besta.txt'
+    inicio_guerra = ''+path+'/textos/inicio_guerreiro.txt'
+    inicio_mago = ''+path+'/textos/inicio_mago.txt'
+    inicio_besta = ''+path+'/textos/inicio_besta.txt'
+    meio_guerra = ''+path+'/textos/meio_guerreiro.txt'
+    meio_besta = ''+path+'/textos/meio_besta.txt'
+    meio_mago = ''+path+'/textos/meio_mago.txt'
+    fim_feliz_guerra = ''+path+'/textos/fim_feliz_guerreiro.txt'
+    fim_feliz_besta = ''+path+'/textos/fim_feliz_besta.txt'
+    fim_feliz_mago = ''+path+'/textos/fim_feliz_mago.txt'
+    fim_triste_guerra = ''+path+'/textos/fim_triste_guerreiro.txt'
+    fim_triste_besta = ''+path+'/textos/fim_triste_besta.txt'
+    fim_triste_mago = ''+path+'/textos/fim_triste_mago.txt'
+    intro = ''+path+'/textos/intro.txt'
 
+#montando so personagens
 class Personagem():
     def __init__(self, nome, tipo):
         self._nome= nome
@@ -36,7 +41,7 @@ class Personagem():
     def __str__(self):
         return f' Nome: {self._nome}\n {self._tipo}'    
 
-
+#crinado um leitor de arquivos de texto
 class Ler():
 
     def __init__(self, texto):
@@ -53,6 +58,7 @@ class Ler():
     def __str__(self):
         return f'{self.leitor()}'
 
+#definindo montando a forma de personagens
 class Tipo_personagem():
     def __init__(self):
         pass
@@ -74,13 +80,14 @@ class Tipo_personagem():
     
     def __str__(self):
         return f'Tipo: {self.add_tipo()} \n Arma: {self.add_arma()} Defesa: {self.add_defesa()} \n Frase de efeito: {self.frase_efeito()}'
-    
+
+# definindo as caracterristicas de car personagem com herança    
 class Guerreiro(Tipo_personagem):
     
     def __init__(self):
         Tipo_personagem.__init__(self)
         self._arma = 'Espada'
-        self._defesa = 'Escudo'
+        self._defesa = 'Aramadura'
         
         
     def add_arma(self):
@@ -113,8 +120,7 @@ class Mago(Tipo_personagem):
            
 
     def frase_efeito(self):
-       return f'Mostra a cara Mr.M'
-
+       return f'Vem na Magia do pai que é brisa garantida!!'
  
 class besta(Tipo_personagem):
    
@@ -133,19 +139,18 @@ class besta(Tipo_personagem):
         return 'besta'        
     
     def frase_efeito(self):
-       return f'Se correr o bicho pega, Se ficar o bicho come'
+       return f'Na queda ou na ascensão minha atitude vai além, eu tenho disposição pro mal e pro bem'
 
+#montando a impressão da historia completa
 class Historia_completa():
-    # lista = []
     def __init__(self, lista):
         self._lista = lista
         self._tamanho = len(lista)
     def historia(self):
         for i in range(0, self._tamanho, 1):
             print(self._lista[i])
-    # def __str__(self):
-    #     return f'{self._lista}'         
-        
+          
+#dando inicio a historia, e add o primeiro txt na lista correspondente Historia completa        
 class Inicio():
     def __init__(self, texto, lista):
         self._texto = texto
@@ -155,6 +160,7 @@ class Inicio():
     def __str__(self):
         return f'{self._texto}'
 
+#recendo os texto que dão possibilidade de escolher por cal caminho a se seguir
 class Historia():
     def __init__(self, texto_meio, texto_fim_feliz, texto_fim_triste, lista):
         self._texto_meio = texto_meio
@@ -176,7 +182,47 @@ class Historia():
         return self._final_feliz  
 
 
-       
+class Monta_historia():
+
+    def __init__(self, nome, inicio, lista, tipo, dialogo, resposta, meio, final_feliz, final_triste):
+        self._nome = nome
+        self._inicio = inicio
+        self._lista = lista
+        self._tipo = tipo
+        self._meio = meio
+        self._final_feliz = final_feliz
+        self._final_triste = final_triste
+        self._dialogo = dialogo
+        self._resposta = resposta
+    
+    def sequencia(self):
+        time.sleep(0.5)
+        personagem = Personagem(self._nome, self._tipo)
+        time.sleep(0.5)
+        print(personagem)
+        time.sleep(0.5)
+        inicio = Inicio(self._inicio, self._lista)
+        time.sleep(0.5)
+        inicio.add_lista()
+        time.sleep(0.5)
+        print(inicio)
+        time.sleep(0.5)
+        print(self._dialogo)
+        self._lista.append(self._dialogo)
+        time.sleep(1.5)
+        print(self._resposta)
+        self._lista.append(self._resposta)
+        time.sleep(0.5)
+        historia = Historia(self._meio, self._final_feliz, self._final_triste, self._lista)
+        historia.continua()
+        time.sleep(0.5)
+        os.system('clear')
+        print('\nHistoria completa\n')
+        time.sleep(1.5)
+        historia_completa = Historia_completa(self._lista)
+        historia_completa.historia()
+
+#class principal que intancia todas as demais classes e variaveis e monta a historia(sei da que da pra refatorar ela.)       
 class Start():
     guerreiro = Guerreiro()
     mago = Mago()
@@ -195,8 +241,7 @@ class Start():
     fim_feliz_besta = Ler(Textos.fim_feliz_besta.value)
     fim_triste_besta = Ler(Textos.fim_triste_besta.value)
     lista = []
-
-
+    
     print(intro)
     time.sleep(1.0)
 
@@ -204,81 +249,26 @@ class Start():
 
     if escolha == '1':
         nome = (input("Nome Guerreiro: "))
-        time.sleep(0.5)
-        personagem = Personagem(nome, guerreiro)
-        time.sleep(0.5)
-        print(personagem)
-        time.sleep(0.5)
-        inicio = Inicio(inicio_guerreiro, lista)
-        time.sleep(0.5)
-        inicio.add_lista()
-        time.sleep(0.5)
-        print(inicio_guerreiro)
-        time.sleep(0.5)
-        print('\nPois é nobre guerreiro '+personagem._nome+' sempre tem alguem pra tirar a sua paz...\n')
-        time.sleep(0.5)
-        historia = Historia(meio_guerreiro,fim_feliz_guerreiro, fim_triste_guerreiro, lista)
-        time.sleep(0.5)
-        historia.continua()
-        time.sleep(5.0)
-        os.system('clear')
-        print('\nHistoria completa\n')
-        time.sleep(1.5)
-        Historia_completa = Historia_completa(lista)
-        Historia_completa.historia()
-
-        # tamanho = len(lista)
-        # for i in range(0,tamanho, 1):
-        #     print(lista[i])
+        dialogo_guerreiro = '\nNarrador diz: Pois é nobre Guerreiro '+nome+' sempre tem alguem pra tirar a sua paz...\n'
+        resposta_guerreiro = 'Guerreiro responde: '+guerreiro.frase_efeito()+'\n'
+        monta_historia = Monta_historia(nome, inicio_guerreiro, lista, guerreiro, dialogo_guerreiro, resposta_guerreiro, meio_guerreiro, fim_feliz_guerreiro, fim_triste_guerreiro)
+        monta_historia.sequencia()
+     
 
     elif escolha == '2':    
         nome = (input("Nome Mago: "))
-        time.sleep(0.5)
-        personagem = Personagem(nome, mago)
-        time.sleep(0.5)
-        print(personagem)
-        time.sleep(0.5)
-        inicio = Inicio(inicio_mago, lista)
-        time.sleep(0.5)
-        inicio.add_lista()
-        time.sleep(0.5)
-        print(inicio_mago)
-        time.sleep(0.5)
-        print('\nVocê gosta de por fogo no parquinho né '+personagem._nome+' seu sem vergonha\n')
-        time.sleep(0.5)
-        historia = Historia(meio_mago,fim_feliz_mago, fim_triste_mago, lista)
-        time.sleep(0.5)
-        historia.continua()
-        time.sleep(5.0)
-        print('\nHistoria completa\n')
-        time.sleep(1.5)
-        Historia_completa = Historia_completa(lista)
-        Historia_completa.historia()
-        
+        dialogo_mago = ('\nNarrador diz: Você gosta de por fogo no parquinho né Mago '+nome+' seu sem vergonha\n')
+        resposta_mago = ('\nMago responde: '+mago.frase_efeito()+'\n')
+        monta_historia= Monta_historia(nome, inicio_mago, lista, mago, dialogo_mago, resposta_mago,meio_mago, fim_feliz_mago, fim_triste_mago) 
+        monta_historia.sequencia()
         
     elif escolha == '3':        
         nome = (input("Nome besta: "))
-        time.sleep(0.5)
-        personagem = Personagem(nome, besta)
-        time.sleep(0.5)
-        print(personagem)
-        time.sleep(0.5)
-        inicio = Inicio(inicio_besta, lista)
-        time.sleep(0.5)
-        inicio.add_lista()
-        time.sleep(0.5)
-        print(inicio_besta)
-        time.sleep(0.5)
-        print('\n Fala  ai '+personagem._nome+' Namastê ou VaiSefudê?  \n')
-        time.sleep(0.5)
-        historia = Historia(meio_besta,fim_feliz_besta, fim_triste_besta, lista)
-        time.sleep(0.5)
-        historia.continua()
-        time.sleep(5.0)
-        print('\nHistoria completa\n')
-        time.sleep(1.5)
-        Historia_completa = Historia_completa(lista)
-        Historia_completa.historia()
+        dialogo_besta = ('Narrador diz: Fala ai '+personagem._nome+' o humor do dia esta mais pra Namastê ou VaiSefudê?  \n')
+        resposta_besta = ('Mago responde: '+besta.frase_efeito()+'\n')
+        monta_historia = Monta_historia(nome, inicio_besta, lista, besta, dialogo_besta, resposta_besta, meio_besta, fim_feliz_besta, fim_triste_besta)
+        monta_historia.sequencia()
+
     else:
         pass
 
