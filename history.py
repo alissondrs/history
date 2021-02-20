@@ -150,25 +150,29 @@ class Historia_completa():
         for i in range(0, self._tamanho, 1):
             print(self._lista[i])
           
-#dando inicio a historia, e add o primeiro txt na lista correspondente Historia completa        
-class Inicio():
-    def __init__(self, texto, lista):
-        self._texto = texto
-        self._lista = lista
-    def add_lista(self):
-        self._lista.append(self._texto)
-    def __str__(self):
-        return f'{self._texto}'
 
 #recebendo os textos que dão possibilidade de escolher por qual caminho a se seguir
 class Historia():
-    def __init__(self, texto_inicio, texto_meio, texto_fim_feliz, texto_fim_triste, lista):
+    def __init__(self, texto_inicio, dialogo, resposta, texto_meio, texto_fim_feliz, texto_fim_triste, lista):
+        self._texto_inicio = texto_inicio
         self._texto_meio = texto_meio
         self._final_feliz = texto_fim_feliz
         self._final_triste = texto_fim_triste
+        self._dialogo = dialogo
+        self._resposta = resposta
         self._lista = lista
 
+        print(self._texto_inicio)
+        self._lista.append(self._texto_inicio)
+        time.sleep(1.5)
+        print(self._dialogo)
+        self._lista.append(self._dialogo)
+        time.sleep(1.5)
+        print(self._resposta)
+        self._lista.append(self._resposta)
+        time.sleep(1.5)
         print(self._texto_meio)
+        time.sleep(1.5)
         self._lista.append(self._texto_meio)
         self._continua = (input("\n\nQual a opção: "))
     def continua(self):    
@@ -178,8 +182,6 @@ class Historia():
         elif self._continua == '2':
             print(self._final_triste)
             self._lista.append(self._final_triste)
-    def __str__(self):         
-        return self._final_feliz  
 
 #classe responsável por montar o fluxo das historias
 class Monta_historia():
@@ -196,26 +198,14 @@ class Monta_historia():
         self._resposta = resposta
     
     def sequencia(self):
-        time.sleep(0.5)
-        personagem = Personagem(self._nome, self._tipo)
-        time.sleep(0.5)
-        print(personagem)
-        time.sleep(0.5)
-        inicio = Inicio(self._inicio, self._lista)
-        time.sleep(0.5)
-        inicio.add_lista()
-        time.sleep(0.5)
-        print(inicio)
-        time.sleep(0.5)
-        print(self._dialogo)
-        self._lista.append(self._dialogo)
         time.sleep(1.5)
-        print(self._resposta)
-        self._lista.append(self._resposta)
-        time.sleep(0.5)
-        historia = Historia(self._meio, self._final_feliz, self._final_triste, self._lista)
+        personagem = Personagem(self._nome, self._tipo)
+        time.sleep(1.5)
+        print(personagem)
+        time.sleep(1.5)
+        historia = Historia(self._inicio, self._dialogo, self._resposta, self._meio, self._final_feliz, self._final_triste, self._lista)
         historia.continua()
-        time.sleep(0.5)
+        time.sleep(1.5)
         os.system('clear')
         print('\nHistoria completa\n')
         time.sleep(1.5)
